@@ -38,8 +38,8 @@ public class SwaggerConfiguration {
             "Gonzalo Salas",
             "https://web.telegram.org/#/im?p=@Gosalass",
             "go.salass@gmail.com"),
-        "License of API",
-        "API license URL",
+        "GitHub resource",
+        "https://github.com/gosalass/ml-url-shortener",
         Collections.emptyList());
   }
 

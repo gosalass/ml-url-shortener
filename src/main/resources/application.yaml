@@ -5,3 +5,5 @@ spring:
 
 webDataFilter:
   toExcludePath: swagger-, api-docs, csrf, url-shorten, gateway
+
+domain: http://localhost:8080

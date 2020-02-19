@@ -24,12 +24,8 @@ public class ShortenDataProviderImpl implements ShortenDataProvider {
 
   @Override
   public UrlResponse createShortenUrl(UrlRequest urlRequest) throws UrlServiceException {
-    try {
-      String document = this.urlShortenService.createDomain(urlRequest);
-      return this.urlTranslator.translateResponse(document);
-    } finally {
-      //TODO LoggerEvent
-    }
+    String document = this.urlShortenService.createDomain(urlRequest);
+    return this.urlTranslator.translateResponse(document);
   }
 
   @Override
@@ -40,8 +36,6 @@ public class ShortenDataProviderImpl implements ShortenDataProvider {
       return this.retrieveOriginalUrlByShortenPath(key);
     } catch (MalformedURLException e) {
       throw new UrlServiceException("ERROR getting path from URL");
-    } finally {
-      //TODO
     }
   }
 

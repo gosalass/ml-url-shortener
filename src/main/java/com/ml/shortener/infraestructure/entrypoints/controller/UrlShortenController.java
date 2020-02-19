@@ -11,9 +11,11 @@ import io.swagger.annotations.ApiResponses;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -69,6 +71,26 @@ public class UrlShortenController {
   @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<UrlResponse> retrieveOriginalUrlByShorten(@RequestParam(value = "url") @Pattern(regexp = "^(http|https)://[a-zA-A0-9.]+/[a-zA-Z0-9]+$") final String urlShorten) throws UrlServiceException {
     return ResponseEntity.ok(this.shortenUseCase.retrieveOriginalUrl(urlShorten));
+  }
+
+  @ApiOperation(value = "Delete shorten URL")
+  @ApiResponses(
+      value = {
+          @ApiResponse(
+              code = HttpServletResponse.SC_NO_CONTENT,
+              message = "OK",
+              response = UrlResponse.class),
+          @ApiResponse(
+              code = HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+              message = "INTERNAL SERVER ERROR"),
+          @ApiResponse(
+              code = HttpServletResponse.SC_BAD_REQUEST,
+              message = "BAD OR MALFORMED REQUEST")
+      })
+  @DeleteMapping(value = "/", consumes=MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Void> deleteShortenUrl(@Valid @RequestBody final UrlRequest urlRequest) throws UrlServiceException {
+    this.shortenUseCase.deleteShortenUrl(urlRequest);
+    return new ResponseEntity(HttpStatus.NO_CONTENT);
   }
 
 }

@@ -1,9 +1,11 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://127.0.0.1:27017/meli
+      uri: mongodb://67.205.168.28:27017/meli
 
 webDataFilter:
   toExcludePath: swagger-, api-docs, csrf, url-shorten, gateway
 
-domain: http://localhost:8080
+domain: http://facil.cc/
+server:
+  port: 80

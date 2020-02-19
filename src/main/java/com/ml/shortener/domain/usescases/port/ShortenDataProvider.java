@@ -12,4 +12,5 @@ public interface ShortenDataProvider {
 
   UrlResponse retrieveOriginalUrlByShortenPath(final String shortenUrl) throws UrlServiceException;
 
+  void deleteShortenUrl(UrlRequest urlRequest);
 }

@@ -67,4 +67,15 @@ public class UrlShortenService {
     return optionalDomainDocument.get();
   }
 
+  public void delete(DomainDocument document) {
+    try {
+      this.domainRepository.delete(document);
+    } catch (Exception ex) {
+      throw
+          UrlServiceException
+            .builder()
+              .message("Error deleting url")
+            .build();
+    }
+  }
 }

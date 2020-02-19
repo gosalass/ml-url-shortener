@@ -6,6 +6,7 @@ import com.ml.shortener.domain.usescases.port.ShortenDataProvider;
 import com.ml.shortener.infraestructure.dataprovider.service.UrlShortenService;
 import com.ml.shortener.infraestructure.entrypoints.translator.UrlTranslator;
 import com.ml.shortener.infraestructure.exception.UrlServiceException;
+import com.ml.shortener.infraestructure.repository.domain.DomainDocument;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,19 @@ public class ShortenDataProviderImpl implements ShortenDataProvider {
   public UrlResponse retrieveOriginalUrlByShortenPath(String shortenUrl) throws UrlServiceException {
     final Integer id = this.urlShortenService.retrieveUrlKey(shortenUrl);
     return this.urlTranslator.translateResponse(this.urlShortenService.retrieveDomainById(id));
+  }
+
+  @Override
+  public void deleteShortenUrl(UrlRequest urlRequest) throws UrlServiceException {
+    try {
+      final URL url = new URL(urlRequest.getUrl());
+      final String key = url.getPath().substring(1);
+      final Integer id = this.urlShortenService.retrieveUrlKey(key);
+      DomainDocument domainDocument = this.urlShortenService.retrieveDomainById(id);
+      this.urlShortenService.delete(domainDocument);
+    } catch (MalformedURLException e) {
+      throw new UrlServiceException("ERROR getting path from URL");
+    }
   }
 
 }

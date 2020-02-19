@@ -68,7 +68,7 @@ public class DomainRepositoryImpl implements DomainRepository {
 
   @Override
   public void delete(DomainDocument entity) {
-
+    this.mongoTemplate.remove(entity);
   }
 
   @Override

@@ -17,6 +17,10 @@ public class ShortenUseCase {
     return this.dataProvider.createShortenUrl(urlRequest);
   }
 
+  public void deleteShortenUrl(UrlRequest urlRequest) throws UrlServiceException {
+    this.dataProvider.deleteShortenUrl(urlRequest);
+  }
+
   public UrlResponse retrieveOriginalUrl(String urlRequest) throws UrlServiceException {
     return this.dataProvider.retrieveOriginalUrl(urlRequest);
   }

@@ -6,6 +6,6 @@ spring:
 webDataFilter:
   toExcludePath: swagger-, api-docs, csrf, url-shorten, gateway
 
-domain: http://facil.cc/
+domain: http://localhost/
 server:
   port: 80
